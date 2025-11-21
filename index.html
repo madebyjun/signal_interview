@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signal &amp; The Future of Privacy: Meredith Whittaker Interview Summary</title>
-    
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0">
     <style>
@@ -143,7 +143,7 @@
         box-shadow: 0 1px 2px rgba(0,0,0,0.2);
         color: white;
       }
-    </style></head>
+    </style><script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script></head>
 <body class="bg-slate-950 text-slate-100 overflow-x-hidden selection:bg-blue-500 selection:text-white">
 
     <!-- Hero Section -->
@@ -475,7 +475,65 @@
     </footer>
 
     <!-- Interactive Scripts -->
-    
+    <script>
+        // Scroll Reveal Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+                observer.observe(section);
+            });
+        });
+
+        // Navigation Scroll
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const navHeight = document.querySelector('nav').offsetHeight;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+
+        // Thought Experiment Interaction
+        function revealExperiment() {
+            const box = document.getElementById('experiment-box');
+            const cover = document.getElementById('experiment-cover');
+            const content = document.getElementById('experiment-content');
+
+            // Animate Cover Away
+            cover.style.transform = 'translateY(-100%)';
+            cover.style.opacity = '0';
+            
+            // Show Content
+            content.classList.remove('opacity-10');
+            content.classList.add('opacity-100');
+            
+            // Change Box Styling to "Warning" mode
+            box.classList.add('border-red-500', 'bg-red-950/30');
+            box.classList.remove('border-slate-700', 'cursor-pointer');
+            
+            // Remove click listener to prevent re-triggering
+            box.onclick = null;
+        }
+    </script>
     
     <!-- 
     Image Source Listing for Verification:
